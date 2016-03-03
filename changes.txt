@@ -1,0 +1,14 @@
++1. keywords and description (title ) [DONE in DESKTOP]
++2. search paging - 10
++3. images without watermark generation
++4. default qrcode image must be singleton. [SCRIPT TO QRCODE]
++5. categories page - > 4 rows.
++6. remove <br> tag in alt tag of alubm image
++7. htaccess for .jpg ext
++8. password sha1
+9. rc form - minimization for status msg and hide after some seconds
++10. social share buttons (large)
++11. extra atrribute must be hidden if null
++12. redirect 404 page if slug not found then to search page
++13. facebook share meta tag with image which didnt have watermark
++14. sort album by album_art flag

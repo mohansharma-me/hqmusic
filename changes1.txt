@@ -1,0 +1,8 @@
++1. featured mobile
++2. request content
++3. dmca / pv / disclaimer
++4. logo uppar nicheni space remove
++5. most favorite album niche space
++6. mobile albums.php -> trim description / remove
++7. latest updates -> top space trim
++8. mobile site -> in download no album image

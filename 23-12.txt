@@ -1,0 +1,13 @@
+title
+yaer
+released
+genre
+director
+writer
+actors
+plot
+poster
+
+
+mobile side:
+title,year, genre, plot,poster

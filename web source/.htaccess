@@ -1,0 +1,93 @@
+##Rewrite Engine on code - MUST BE ACTIVE for rewrites##
+Options +FollowSymlinks
+Options All -Indexes
+RewriteEngine on
+
+##Secure htaccess file ##
+<Files .htaccess>
+Order Allow,Deny
+Deny from all 
+</Files>
+
+<Files /files/>
+Order Allow,Deny
+Deny from all 
+</Files>
+
+#ALLOW USER BY IP 1.39.15.218
+<Limit GET POST>
+ order deny,allow
+ deny from all
+ allow from all
+</Limit>
+
+
+## Force a file to download with a "Save As" ## 
+AddType application/octet-stream .doc .mov .avi .pdf .xls .mp4
+
+#search slug
+RewriteCond %{REQUEST_URI} ^/songs/(.*)$
+RewriteRule ^songs/(.*) /search1/?type=songs&q=$1&%{QUERY_STRING} [L,NE]
+
+RewriteCond %{REQUEST_URI} ^/albums/(.*)$
+RewriteRule ^albums/(.*) /search1/?type=albums&q=$1&%{QUERY_STRING} [L,NE]
+
+RewriteCond %{REQUEST_URI} ^/search/(.*)$
+RewriteRule ^search/(.*) /search1/?type=both&q=$1&%{QUERY_STRING} [L,NE]
+
+
+
+## Redirect /images/something.jpg to /images/something
+RewriteCond %{REQUEST_URI} ^/images/(.*)\.png$ 
+RewriteCond %{DOCUMENT_ROOT}/images/%1 -f
+RewriteRule ^(.*)\.png$ /$1 [L,NE]
+
+RewriteCond %{REQUEST_URI} ^/images/(.*)_300\.png$ 
+RewriteCond %{DOCUMENT_ROOT}/images/%1 !-f
+RewriteRule ^ /theme/qrcode.png [L,NE]
+
+RewriteCond %{REQUEST_URI} ^/images/(.*)_300_wwm\.png$ 
+RewriteCond %{DOCUMENT_ROOT}/images/%1 !-f
+RewriteRule ^ /theme/qrcode.png [L,NE]
+
+RewriteCond %{REQUEST_URI} ^/images/(.*)_thumb\.png$ 
+RewriteCond %{DOCUMENT_ROOT}/images/%1 !-f
+RewriteRule ^ /theme/qrcode_thumb.png [L,NE]
+
+RewriteCond %{REQUEST_URI} ^/images/(.*)\.png$ 
+RewriteCond %{DOCUMENT_ROOT}/images/%1 !-f
+RewriteRule ^ /theme/qrcode.png [L,NE]
+
+#RewriteCond %{REQUEST_URI} ^/images/.*$ 
+#RewriteCond %{REQUEST_URI} !-f
+#RewriteRule ^ /theme/qrcode.png [L,NE]
+
+## Redirect index to root ## 
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /.*index\.html\ HTTP/ 
+RewriteRule ^(.*)index\.html$ /$1 [R=301,L]
+
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /.*index\.php\ HTTP/ 
+RewriteRule ^(.*)index\.php$ /$1 [R=301,L]
+
+## Redirect all to Maintenance Page ##
+#RewriteBase / RewriteCond %{REMOTE_HOST} !^111\.11\.11\.11 
+#RewriteCond %{REQUEST_URI} !^/downtime\.html$ 
+#RewriteRule ^(.*)$ /downtime.html [R=302,L]
+
+## Standard 301 Redirect for Permanent Changes #
+# redirect 301 /old-page.html http://www.example.com/newpage.html
+
+## Code to make all HTML requests become PHP requests - BE CAREFUL WITH THIS ONE ## 
+#RedirectMatch 301 (.*)\.html$ $1.php
+
+##Make Linux correct case sensitive urls/slight typos in urls##
+#CheckSpelling On
+
+
+#RewriteCond %{HTTP_REFERER} !^http://(.+\.)?localhost/ [NC]
+#RewriteRule .*\.(jpe?g|gif|bmp|png)$ - [F]
+
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteRule ^(.*) /index.php?__key=$1&%{QUERY_STRING} [L,NE]
+RewriteRule ^(.*)/$ /index.php?__key=$1&%{QUERY_STRING} [L,NE]

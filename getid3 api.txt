@@ -1,0 +1,58 @@
+<?php
+    function recursive_array_replace($find, $replace, $array){
+		if (!is_array($array)) {
+			return str_ireplace($find, $replace, $array);
+		}
+		$newArray = array();
+		foreach ($array as $key => $value) {
+			$newArray[$key] = recursive_array_replace($find, $replace, $value);
+		}
+		return $newArray;
+	}
+
+
+	$tagging_format = "UTF-8";
+	$path = "pappi.mp3";
+	require_once('../getid3/getid3.php');
+	require_once('../getid3/write.php');
+
+	$getID3 = new getID3;
+	$getID3->setOption(array('encoding'=>$tagging_format));
+	$tagdata = $getID3->analyze($path);
+	$tagdata = $tagdata['tags']['id3v2'];
+	$tagdata = recursive_array_replace("songspk.name","DesiMp3.mobi",$tagdata);
+	$tagwriter = new getid3_writetags;
+	$tagwriter->filename = $path;
+	$tagwriter->tagformats = array('id3v1', 'id3v2.3');
+	$tagwriter->overwrite_tags = true;
+	$tagwriter->tag_encoding = $tagging_format;
+	$tagwriter->remove_other_tags = true;
+
+	//read the APIC
+	ob_start();
+	if($fd = fopen("apic.jpg",'rb'))
+	{
+		ob_end_clean();
+		$image_data = fread($fd,filesize("apic.jpg"));
+		fclose($fd);
+	}
+
+	$tagdata['attached_picture'][0]['data'] = $image_data;
+	$tagdata['attached_picture'][0]['picturetypeid'] = "3";
+	$tagdata['attached_picture'][0]['description'] = "DesiMp3.mobi";
+	$tagdata['attached_picture'][0]['mime'] = "image/jpeg";
+	
+	print_r($tagdata);
+
+	$tagwriter->tag_data = $tagdata;
+	if($tagwriter->WriteTags())
+	{
+		echo "You did it. \n";
+		$tagdata = $getID3->analyze($path);
+		print_r($tagdata);
+	}
+	else
+	{
+		echo "oops, try again. :) \n";
+		print_r($tagwriter->errors);
+	}

@@ -1,0 +1,4 @@
+1. update song album-art on album-edit
+2. validate album slug with main category slug
+3. profile
+4. latest date-updatation at every time

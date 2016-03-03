@@ -1,0 +1,53 @@
+Main Category
+1) ID
+2) Name
+3) Slug
+
+Sub Category
+1) ID
+2) Main Category ID
+3) Name
+4) Slug
+
+Albums
+1) ID
+2) Sub Category ID
+3) Name
+4) Slug
+5) Description
+6) Year
+7) Album Art
+8) Cast
+9) imdb ID
+
+Songs
+1) ID
+2) Album ID
+3) Name
+4) Slug
+5) File Path
+6) KBPS
+7) Size
+
+Files
+1) ID
+2) Song ID
+3) Kbps
+
+
+
+
+Wap Site like wapking.cc (Search For Albums and Songs)
+Desktop Site
+
+Admin Panel
+Admin User Management
+Manually Add Category + Sub Category (Add+Edit+Delete)
+Manually Album Entry + Imdb Fetch (Add+Edit+Delete) (API Url : www.omdbapi.com)
+Manually Song Entry (browse + transload (ZIP or Direct File)) for Any Album with 160 and 320 KBPS (adpated with auto if any of them is not avaliable), auto song size and number of downloads.
+song download link using id only not direct link.
+SEO Friendly URLs
+
+
+
+QR Code IDEA

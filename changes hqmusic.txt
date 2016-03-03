@@ -1,0 +1,3 @@
+1. trim names and description whenever required
+2. search box trim
+3. 
